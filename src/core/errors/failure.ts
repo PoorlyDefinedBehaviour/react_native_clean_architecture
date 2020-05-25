@@ -1,3 +1,3 @@
-interface IFailure {}
+interface Failure {}
 
-export default IFailure
+export default Failure

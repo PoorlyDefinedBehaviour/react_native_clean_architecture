@@ -1,14 +1,18 @@
-import ITodoRepository from "../../domain/repositories/todo_repository"
-import ITodoLocalDataSource from "../datasources/todo_local_data_source"
-import ITodoRemoteDataSource from "../datasources/todo_remote_data_source"
-import INetworkInfo from "../../../../core/network/network_info"
+import {
+  CreateTodo,
+  FindTodos,
+} from "../../domain/repositories/todo_repository.ts"
 
-class TodoRepository implements ITodoRepository {
-  constructor(
-    private readonly localDataSource: ITodoLocalDataSource,
-    private readonly remoteDataSource: ITodoRemoteDataSource,
-    private networkInfo: INetworkInfo
-  ) {}
+interface Dependencies {
+  dataSource: {
+    todos: {
+      createTodo: CreateTodo
+      findTodos: FindTodos
+    }
+  }
 }
 
-export default TodoRepository
+export const makeCreateTodoRepository = ({ dataSource }: Dependencies) =>
+  dataSource.todos.createTodo
+export const makeFindTodosRepository = ({ dataSource }: Dependencies) =>
+  dataSource.todos.findTodos

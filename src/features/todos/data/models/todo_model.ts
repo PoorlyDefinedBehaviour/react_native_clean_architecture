@@ -1,9 +1,9 @@
-class TodoModel {
-  constructor(
-    public readonly id: number,
-    public readonly description: string,
-    public readonly completed: boolean
-  ) {}
+type TodoModel = {
+  id: number
+  description: string
+  completed: boolean
+  created_at: Date
+  updated_at: Date
 }
 
 export default TodoModel
