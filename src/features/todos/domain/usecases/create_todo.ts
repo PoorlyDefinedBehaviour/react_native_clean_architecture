@@ -1,9 +1,15 @@
-import { CreateTodo } from "../repositories/todo_repository.ts"
+import { Either } from "fp-ts/lib/Either"
+import Failure from "../../../../core/errors/failure"
+import Todo from "../entities/todo_entity"
 
-interface Dependencies {
-  todos: {
-    createTodo: CreateTodo
-  }
+interface TodoRepository {
+  create: (description: string) => Promise<Either<Failure, Todo>>
 }
 
-export default ({ todos }: Dependencies) => todos.createTodo
+interface Dependencies {
+  todoRepository: TodoRepository
+}
+
+const makeUseCase = ({ todoRepository }: Dependencies) => todoRepository.create
+
+export default makeUseCase

@@ -1,10 +1,13 @@
-import { FindTodos } from "../repositories/todo_repository.ts"
 import Todo from "../entities/todo_entity"
 
-interface Dependencies {
-  todos: {
-    findTodos: FindTodos
-  }
+interface TodoRepository {
+  find: () => Promise<Todo[]>
 }
-export type GetTodos = () => Promise<Todo[]>
-export default ({ todos }: Dependencies) => todos.findTodos
+
+interface Dependencies {
+  todoRepository: TodoRepository
+}
+
+const makeUseCase = ({ todoRepository }: Dependencies) => todoRepository.find
+
+export default makeUseCase
